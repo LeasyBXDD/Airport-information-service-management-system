@@ -65,14 +65,14 @@ export default defineComponent({
         const handleAdd = () => {
             let newData = {
                 CustomerID: `${count.value}`,
-                Name: `${count.value}`,
-                ContactInfo: `新建地址${count.value}`,
+                Name: `user${count.value}`,
+                ContactInfo: `user${count.value}@example.com`,
             };
 
             axios.post('http://localhost/databigvue/php/adduser.php', {
                 CustomerID: `${count.value}`,
-                Name: `${count.value}`,
-                ContactInfo: `新建地址${count.value}`,
+                Name: `user${count.value}`,
+                ContactInfo: `user${count.value}@example.com`,
             },{
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
