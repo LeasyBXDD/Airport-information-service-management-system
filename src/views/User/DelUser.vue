@@ -15,7 +15,7 @@
             </template>
             <template v-else-if="column.dataIndex === 'operation'">
                 <a-popconfirm v-if="dataSource.length" title="Sure to delete?" @confirm="onDelete(record.key)">
-                    <a>删除</a>
+                    <a>Delete</a>
                 </a-popconfirm>
             </template>
         </template>
@@ -33,54 +33,76 @@ export default defineComponent({
         EditOutlined,
     },
     setup() {
-        const columns = [
-            {
-                title: 'name',
-                dataIndex: 'name',
-                width: '30%',
-            },
-            {
-                title: 'age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'address',
-                dataIndex: 'address',
-            },
-            {
-                title: '操作',
-                dataIndex: 'operation',
-            },
-        ];
+
+        const columns = [{
+            title: 'CustomerID',
+            dataIndex: 'CustomerID',
+            width: '30%',
+        }, {
+            title: 'Name',
+            dataIndex: 'Name',
+        }, {
+            title: 'ContactInfo',
+            dataIndex: 'ContactInfo',
+        }, {
+            title: 'operation',
+            dataIndex: 'operation',
+        }];
         const dataSource = ref([]);
+        const count = computed(() => dataSource.value.length + 1);
         const editableData = reactive({});
-        const edit = (key) => {
-            editableData[key] = cloneDeep(
-                dataSource.value.filter((item) => key === item.key)[0]
-            );
+        const edit = key => {
+            editableData[key] = cloneDeep(dataSource.value.filter(item => key === item.key)[0]);
         };
-        const save = (key) => {
-            Object.assign(
-                dataSource.value.filter((item) => key === item.key)[0],
-                editableData[key]
-            );
+        const save = key => {
+            Object.assign(dataSource.value.filter(item => key === item.key)[0], editableData[key]);
             delete editableData[key];
         };
-        const onDelete = (key) => {
-            dataSource.value = dataSource.value.filter((item) => item.key !== key);
+        // const onDelete = key => {
+        //     dataSource.value = dataSource.value.filter(item => item.key !== key);
+        // };
+        const handleAdd = () => {
+            const newData = {
+                CustomerID: `${count.value}`,
+                Name: `Edward King ${count.value}`,
+                ContactInfo: `London, Park Lane no. ${count.value}`,
+            };
+            dataSource.value.push(newData);
         };
 
-        axios.get('/api/users').then((response) => {
-            dataSource.value = response.data;
+        const fetchData = () => {
+            axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+                console.log(response.data);
+                dataSource.value = response.data[0].data;
+            });
+        };
+
+        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            console.log(response.data);
+            dataSource.value = response.data[0].data;
         });
 
+        const onDelete = key => {
+            console.log(key);
+            dataSource.value = dataSource.value.filter(item => item.key !== key);
+            axios.post('http://localhost/databigvue/php/deluser.php', {
+                CustomerID: key
+            }).then((response) => {
+                console.log(response.data);
+                fetchData();
+            });
+        };
+
         return {
+            fetchData,
             columns,
+            onDelete,
+            handleAdd,
             dataSource,
             editableData,
+            count,
             edit,
             save,
-            onDelete,
         };
     },
 });
@@ -118,6 +140,10 @@ export default defineComponent({
     .editable-cell-icon:hover,
     .editable-cell-icon-check:hover {
         color: #108ee9;
+    }
+
+    .editable-add-btn {
+        margin-bottom: 8px;
     }
 }
 

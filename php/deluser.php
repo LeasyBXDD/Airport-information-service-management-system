@@ -1,22 +1,28 @@
 <?php
-// 引入数据库连接文件
-require_once 'conn.php';
+// 删除用户
 
-// 检查是否传递了用户 ID
-if (isset($_GET["id"])) {
-  $id = $_GET["id"];
+$code = 0;
+$data = [];
+$msg = ['删除失败', '删除成功'];
 
-  // 删除用户信息
-  $stmt = $conn->prepare("DELETE FROM Customer WHERE CustomerID=?");
-  $stmt->bind_param("i", $id);
-  if ($stmt->execute()) {
-    echo "用户信息已删除";
-  } else {
-    echo "删除失败: " . $conn->error;
-  }
-  $stmt->close();
+include 'conn.php';
+include 'functions.php';
+
+$CustomerID = $_GET["CustomerID"];
+echo $CustomerID;
+
+$sql = "DELETE FROM Customer WHERE CustomerID = '$CustomerID'";
+
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, 's', $CustomerID);
+mysqli_stmt_execute($stmt);
+
+if (mysqli_stmt_affected_rows($stmt) > 0) {
+  $code = 1;
 }
 
-// 关闭连接
-$conn->close();
+mysqli_stmt_close($stmt);
+mysqli_close($conn);
+
+echo getApiResult($code, $data, $msg);
 ?>

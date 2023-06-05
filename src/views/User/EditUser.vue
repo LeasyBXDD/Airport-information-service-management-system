@@ -33,18 +33,18 @@ import axios from 'axios';
 
 const columns = [
     {
-        title: 'name',
-        dataIndex: 'name',
+        title: 'CustomerID',
+        dataIndex: 'CustomerID',
         width: '25%',
     },
     {
-        title: 'age',
-        dataIndex: 'age',
+        title: 'Name',
+        dataIndex: 'Name',
         width: '15%',
     },
     {
-        title: 'address',
-        dataIndex: 'address',
+        title: 'ContactInfo',
+        dataIndex: 'ContactInfo',
         width: '40%',
     },
     {
@@ -73,8 +73,9 @@ export default defineComponent({
             delete editableData[key];
         };
 
-        axios.get('/api/users').then((response) => {
-            dataSource.value = response.data;
+        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            console.log(response.data);
+            dataSource.value = response.data[0].data;
         });
 
         return {
