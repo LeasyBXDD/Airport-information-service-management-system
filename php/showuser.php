@@ -1,20 +1,30 @@
 <?php
-// 引入数据库连接文件
-require_once 'conn.php';
+// 添加用户
 
-// 查询所有用户信息
-$sql = "SELECT CustomerID, Name, ContactInfo FROM Customer";
-$result = $conn->query($sql);
+$code = 0;
+$data = [];
+$msg = ['获取失败', '获取成功'];
 
-// 输出查询结果
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    echo "CustomerID: " . $row["CustomerID"]. " - Name: " . $row["Name"]. " - ContactInfo: " . $row["ContactInfo"]. "<br>";
-  }
-} else {
-  echo "0 results";
+include 'conn.php';
+include 'functions.php';
+
+$sql = "SELECT * FROM Customer";
+$rs = mysqli_query($conn, $sql);
+$i = 0;
+
+while ($row = mysqli_fetch_array($rs)) {
+  $data[$i]["CustomerID"] = $row["CustomerID"];
+  $data[$i]["Name"] = $row["Name"];
+  $data[$i]["ContactInfo"] = $row["ContactInfo"];
+  $i++;
 }
 
-// 关闭连接
-$conn->close();
+if (mysqli_num_rows($rs) > 0) {
+  $code = 1;
+}
+
+// mysqli_stmt_close($stmt);
+mysqli_close($conn);
+
+echo getApiResult($code, $data, $msg);
 ?>

@@ -31,17 +31,19 @@ export default defineComponent({
     setup() {
         const columns = [
             {
-                title: 'name',
-                dataIndex: 'name',
-                width: '30%',
+                title: 'ID',
+                dataIndex: 'CustomerID',
+                key: 'CustomerID',
             },
             {
-                title: 'age',
-                dataIndex: 'age',
+                title: '姓名',
+                dataIndex: 'Name',
+                key: 'Name',
             },
             {
-                title: 'address',
-                dataIndex: 'address',
+                title: '联系信息',
+                dataIndex: 'ContactInfo',
+                key: 'ContactInfo',
             },
         ];
         const dataSource = ref([]);
@@ -59,18 +61,41 @@ export default defineComponent({
             );
             delete editableData[key];
         };
+
         const handleAdd = () => {
-            const newData = {
-                key: `${count.value}`,
-                name: `Edward King ${count.value}`,
-                age: 32,
-                address: `London, Park Lane no. ${count.value}`,
+            let newData = {
+                CustomerID: `${count.value}`,
+                Name: `${count.value}`,
+                ContactInfo: `新建地址${count.value}`,
             };
-            dataSource.value.push(newData);
+
+            axios.post('http://localhost/databigvue/php/adduser.php', {
+                CustomerID: `${count.value}`,
+                Name: `${count.value}`,
+                ContactInfo: `新建地址${count.value}`,
+            },{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    if (response.data[0].code === 1) {
+                        newData.key = response.data[0].data.CustomerID;
+                        dataSource.value.push(newData);
+                        count.value += 1;
+                    } else {
+                        console.error(response.data);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         };
 
-        axios.get('/api/users').then((response) => {
-            dataSource.value = response.data;
+        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            console.log(response.data);
+            dataSource.value = response.data[0].data;
         });
 
         return {

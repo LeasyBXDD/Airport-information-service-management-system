@@ -1,25 +1,24 @@
 <?php
-// 引入数据库连接文件
-require_once 'conn.php';
+// 添加用户
 
-// 检查是否提交了表单
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // 获取表单数据
-  $id = $_POST["id"];
-  $name = $_POST["name"];
-  $email = $_POST["email"];
+$code = 0;
+$data = [];
+$msg = ['获取失败', '获取成功'];
 
-  // 更新用户信息
-  $stmt = $conn->prepare("UPDATE Customer SET Name=?, ContactInfo=? WHERE CustomerID=?");
-  $stmt->bind_param("ssi", $name, $email, $id);
-  if ($stmt->execute()) {
-    echo "用户信息已更新";
-  } else {
-    echo "更新失败: " . $conn->error;
-  }
-  $stmt->close();
+include 'conn.php';
+include 'functions.php';
+$CustomerID = $_POST["CustomerID"];
+$Name = $_POST["Name"];
+$ContactInfo = $_POST["ContactInfo"];
+
+
+
+$sql = "INSERT INTO Customer (CustomerID, Name, ContactInfo) VALUES ('$CustomerID', '$Name', '$ContactInfo')";
+$rs = mysqli_query($conn, $sql);
+
+if ($rs) {
+  $code = 1;
 }
 
-// 关闭连接
-$conn->close();
+echo getApiResult($code, $data, $msg);
 ?>

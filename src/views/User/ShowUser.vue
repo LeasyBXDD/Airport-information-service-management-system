@@ -8,33 +8,25 @@ import axios from "axios";
 
 const columns = [
     {
-        title: "Name",
-        dataIndex: "name"
+        title: "CustomerID",
+        dataIndex: "CustomerID"
     },
     {
-        title: "Chinese Score",
-        dataIndex: "chinese",
+        title: "Name",
+        dataIndex: "Name",
         sorter: {
             compare: (a, b) => a.chinese - b.chinese,
             multiple: 3
         }
     },
     {
-        title: "Math Score",
-        dataIndex: "math",
+        title: "ContactInfo",
+        dataIndex: "ContactInfo",
         sorter: {
             compare: (a, b) => a.math - b.math,
             multiple: 2
         }
     },
-    {
-        title: "English Score",
-        dataIndex: "english",
-        sorter: {
-            compare: (a, b) => a.english - b.english,
-            multiple: 1
-        }
-    }
 ];
 
 export default defineComponent({
@@ -47,8 +39,8 @@ export default defineComponent({
 
         onMounted(async () => {
             try {
-                const response = await axios.get("/api/users");
-                data.value = response.data;
+                const response = await axios.get("http://localhost/databigvue/php/showuser.php");
+                data.value = response.data[0].data;
             } catch (error) {
                 console.error(error);
             }

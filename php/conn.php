@@ -3,7 +3,7 @@
 $servername = "localhost:3306";
 $username = "root";
 $password = "Lyz123456";
-$dbname = "users";
+$dbname = "flightreservation";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -11,8 +11,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("连接失败: " . $conn->connect_error);
 }
-echo "连接成功";
+// echo "连接成功";
 
-// 关闭连接
-$conn->close();
 ?>
