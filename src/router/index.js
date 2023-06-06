@@ -45,6 +45,26 @@ const router = createRouter({
       name: 'ShowUser',
       component: () => import('../views/User/ShowUser.vue')
     },
+    {
+      path: '/showFlight',
+      name: 'ShowFlight',
+      component: () => import('../views/Flight/ShowFlight.vue')
+    },
+    {
+      path: '/addFlight',
+      name: 'AddFlight',
+      component: () => import('../views/Flight/AddFlight.vue')
+    },
+    {
+      path: '/editFlight',
+      name: 'EditFlight',
+      component: () => import('../views/Flight/EditFlight.vue')
+    },
+    {
+      path: '/delFlight',
+      name: 'DelFlight',
+      component: () => import('../views/Flight/DelFlight.vue')
+    },
   ]
 })
 

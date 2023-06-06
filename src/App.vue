@@ -64,10 +64,26 @@
               <span>航班</span>
             </span>
           </template>
-          <a-menu-item key="7">增加</a-menu-item>
-          <a-menu-item key="8">删除</a-menu-item>
-          <a-menu-item key="9">修改</a-menu-item>
-          <a-menu-item key="10">查看</a-menu-item>
+          <a-menu-item key="7">
+            <router-link to="/addFlight">
+              增加
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="8">
+            <router-link to="/delFlight">
+              删除
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="9">
+            <router-link to="/editFlight">
+              修改
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="10">
+            <router-link to="/showFlight">
+              查看
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 预定 -->
