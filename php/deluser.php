@@ -8,10 +8,10 @@ $msg = ['删除失败', '删除成功'];
 include 'conn.php';
 include 'functions.php';
 
-$CustomerID = $_GET["CustomerID"];
+$CustomerID = $_POST["CustomerID"];
 echo $CustomerID;
 
-$sql = "DELETE FROM Customer WHERE CustomerID = '$CustomerID'";
+$sql = "DELETE FROM Customer WHERE CustomerID = ?";
 
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, 's', $CustomerID);

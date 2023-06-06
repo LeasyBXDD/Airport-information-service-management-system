@@ -1,20 +1,20 @@
 <template>
     <a-table bordered :data-source="dataSource" :columns="columns">
         <template #bodyCell="{ column, text, record }">
-            <template v-if="column.dataIndex === 'name'">
+            <template v-if="column.dataIndex === 'CustomerID'">
                 <div class="editable-cell">
-                    <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
-                        <a-input v-model:value="editableData[record.key].name" @pressEnter="save(record.key)" />
-                        <check-outlined class="editable-cell-icon-check" @click="save(record.key)" />
+                    <div v-if="editableData[record.CustomerID]" class="editable-cell-input-wrapper">
+                        <a-input v-model:value="editableData[record.CustomerID].name" @pressEnter="save(record.CustomerID)" />
+                        <check-outlined class="editable-cell-icon-check" @click="save(record.CustomerID)" />
                     </div>
                     <div v-else class="editable-cell-text-wrapper">
                         {{ text || ' ' }}
-                        <edit-outlined class="editable-cell-icon" @click="edit(record.key)" />
+                        <edit-outlined class="editable-cell-icon" @click="edit(record.CustomerID)" />
                     </div>
                 </div>
             </template>
             <template v-else-if="column.dataIndex === 'operation'">
-                <a-popconfirm v-if="dataSource.length" title="Sure to delete?" @confirm="onDelete(record.key)">
+                <a-popconfirm v-if="dataSource.length" title="Sure to delete?" @confirm="onDelete(record.CustomerID)">
                     <a>Delete</a>
                 </a-popconfirm>
             </template>
@@ -51,12 +51,12 @@ export default defineComponent({
         const dataSource = ref([]);
         const count = computed(() => dataSource.value.length + 1);
         const editableData = reactive({});
-        const edit = key => {
-            editableData[key] = cloneDeep(dataSource.value.filter(item => key === item.key)[0]);
+        const edit = CustomerID => {
+            editableData[CustomerID] = cloneDeep(dataSource.value.filter(item => CustomerID === item.key)[0]);
         };
-        const save = key => {
-            Object.assign(dataSource.value.filter(item => key === item.key)[0], editableData[key]);
-            delete editableData[key];
+        const save = CustomerID => {
+            Object.assign(dataSource.value.filter(item => CustomerID === item.CustomerID)[0], editableData[CustomerID]);
+            delete editableData[CustomerID];
         };
         // const onDelete = key => {
         //     dataSource.value = dataSource.value.filter(item => item.key !== key);
@@ -82,11 +82,15 @@ export default defineComponent({
             dataSource.value = response.data[0].data;
         });
 
-        const onDelete = key => {
-            console.log(key);
-            dataSource.value = dataSource.value.filter(item => item.key !== key);
+        const onDelete = CustomerID => {
+            console.log(CustomerID);
+            dataSource.value = dataSource.value.filter(item => item.CustomerID !== CustomerID);
             axios.post('http://localhost/databigvue/php/deluser.php', {
-                CustomerID: key
+                CustomerID
+            },{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             }).then((response) => {
                 console.log(response.data);
                 fetchData();

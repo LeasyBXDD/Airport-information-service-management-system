@@ -63,10 +63,11 @@ export default defineComponent({
             );
         };
         const save = (key) => {
-            Object.assign(
-                dataSource.value.filter((item) => key === item.key)[0],
-                editableData[key]
-            );
+            const editedData = editableData[key];
+            axios.post('http://localhost/databigvue/php/edituser.php', editedData).then((response) => {
+                console.log(response.data);
+                fetchData();
+            });
             delete editableData[key];
         };
         const cancel = (key) => {
