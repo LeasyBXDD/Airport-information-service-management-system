@@ -1,9 +1,9 @@
 <template>
     <a-table :columns="columns" :data-source="dataSource" bordered>
         <template #bodyCell="{ column, text, record }">
-            <template v-if="['name', 'age', 'address'].includes(column.dataIndex)">
+            <template v-if="['CustomerID', 'Name', 'ContactInfo'].includes(column.dataIndex)">
                 <div>
-                    <a-input v-if="editableData[record.key]" v-model:value="editableData[record.key][column.dataIndex]"
+                    <a-input v-if="editableData[record.CustomerID]" v-model:value="editableData[record.CustomerID][column.dataIndex]"
                         style="margin: -5px 0" />
                     <template v-else>
                         {{ text }}
@@ -12,14 +12,14 @@
             </template>
             <template v-else-if="column.dataIndex === 'operation'">
                 <div class="editable-row-operations">
-                    <span v-if="editableData[record.key]">
-                        <a-typography-link @click="save(record.key)">Save</a-typography-link>
-                        <a-popconfirm title="Sure to cancel?" @confirm="cancel(record.key)">
+                    <span v-if="editableData[record.CustomerID]">
+                        <a-typography-link @click="save(record.CustomerID)">Save</a-typography-link>
+                        <a-popconfirm title="Sure to cancel?" @confirm="cancel(record.CustomerID)">
                             <a>Cancel</a>
                         </a-popconfirm>
                     </span>
                     <span v-else>
-                        <a @click="edit(record.key)">Edit</a>
+                        <a @click="edit(record.CustomerID)">Edit</a>
                     </span>
                 </div>
             </template>
@@ -57,25 +57,35 @@ export default defineComponent({
     setup() {
         const dataSource = ref([]);
         const editableData = reactive({});
-        const edit = (key) => {
-            editableData[key] = cloneDeep(
-                dataSource.value.filter((item) => key === item.key)[0]
+        const edit = (CustomerID) => {
+            editableData[CustomerID] = cloneDeep(
+                dataSource.value.filter((item) => CustomerID === item.CustomerID)[0]
             );
         };
-        const save = (key) => {
-            const editedData = editableData[key];
-            axios.post('http://localhost/databigvue/php/edituser.php', editedData).then((response) => {
-                console.log(response.data);
+        const fetchData = () => {
+            axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+                // console.log(response.data);
+                dataSource.value = response.data[0].data;
+            });
+        };
+        const save = (CustomerID) => {
+            const editedData = editableData[CustomerID];
+            axios.post('http://localhost/databigvue/php/edituser.php', editedData,{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then((response) => {
+                console.log(response);
                 fetchData();
             });
-            delete editableData[key];
+            delete editableData[CustomerID];
         };
-        const cancel = (key) => {
-            delete editableData[key];
+        const cancel = (CustomerID) => {
+            delete editableData[CustomerID];
         };
 
         axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             dataSource.value = response.data[0].data;
         });
 
