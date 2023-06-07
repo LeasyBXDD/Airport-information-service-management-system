@@ -1,8 +1,8 @@
 <template>
     <a-table :data-source="data.value" :columns="columns">
         <template #headerCell="{ column }">
-            <template v-if="column.key === 'Name'">
-                <span style="color: #1890ff">Name</span>
+            <template v-if="column.key === 'FlightID'">
+                <span style="color: #1890ff">FlightID</span>
             </template>
         </template>
         <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }">
@@ -58,12 +58,12 @@ export default defineComponent({
         const searchInput = ref();
         const columns = [
             {
-                title: 'Name',
-                dataIndex: 'Name',
-                key: 'Name',
+                title: 'FlightID',
+                dataIndex: 'FlightID',
+                key: 'FlightID',
                 customFilterDropdown: true,
                 onFilter: (value, record) =>
-                    record.Name.toString().toLowerCase().includes(value.toLowerCase()),
+                    record.FlightID.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownVisibleChange: (visible) => {
                     if (visible) {
                         setTimeout(() => {
@@ -73,17 +73,42 @@ export default defineComponent({
                 },
             },
             {
-                title: 'CustomerID',
-                dataIndex: 'CustomerID',
-                key: 'CustomerID',
+                title: 'FlightNumber',
+                dataIndex: 'FlightNumber',
+                key: 'FlightNumber',
             },
             {
-                title: 'ContactInfo',
-                dataIndex: 'ContactInfo',
-                key: 'ContactInfo',
+                title: 'DepartureTime',
+                dataIndex: 'DepartureTime',
+                key: 'DepartureTime',
+            },
+            {
+                title: 'ArrivalTime',
+                dataIndex: 'ArrivalTime',
+                key: 'ArrivalTime',
+            },
+            {
+                title: 'FlightStatus',
+                dataIndex: 'FlightStatus',
+                key: 'FlightStatus',
+            },
+            {
+                title: 'AircraftID',
+                dataIndex: 'AircraftID',
+                key: 'AircraftID',
+            },
+            {
+                title: 'DepartureAirportCode',
+                dataIndex: 'DepartureAirportCode',
+                key: 'DepartureAirportCode',
+            },
+            {
+                title: 'ArrivalAirportCode',
+                dataIndex: 'ArrivalAirportCode',
+                key: 'ArrivalAirportCode',
                 customFilterDropdown: true,
                 onFilter: (value, record) =>
-                    record.address.toString().toLowerCase().includes(value.toLowerCase()),
+                    record.ContactInfo.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownVisibleChange: (visible) => {
                     if (visible) {
                         setTimeout(() => {
@@ -95,16 +120,16 @@ export default defineComponent({
         ];
         const data = reactive([]); // 声明响应式对象
         const fetchData = () => {
-            axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            axios.get('http://localhost/databigvue/php/showFlight.php').then((response) => {
                 console.log(response.data);
                 data.value = response.data[0].data;
             });
         };
-        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+        axios.get('http://localhost/databigvue/php/showFlight.php').then((response) => {
             console.log(response.data);
             data.value = response.data[0].data;
         });
-        console.log("sss",data);
+        console.log("sss", data);
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
             confirm();
             state.searchText = selectedKeys[0];

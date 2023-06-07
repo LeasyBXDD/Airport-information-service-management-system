@@ -2,10 +2,10 @@
     <a-button class="editable-add-btn" style="margin-bottom: 8px" @click="handleAdd">添加</a-button>
     <a-table bordered :data-source="dataSource" :columns="columns">
         <template #bodyCell="{ column, text, record }">
-            <template v-if="column.dataIndex === 'name'">
+            <template v-if="column.dataIndex === 'FlightNumber'">
                 <div class="editable-cell">
                     <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
-                        <a-input v-model:value="editableData[record.key].name" @pressEnter="save(record.key)" />
+                        <a-input v-model:value="editableData[record.key].FlightNumber" @pressEnter="save(record.key)" />
                         <check-outlined class="editable-cell-icon-check" @click="save(record.key)" />
                     </div>
                     <div v-else class="editable-cell-text-wrapper">
@@ -31,19 +31,44 @@ export default defineComponent({
     setup() {
         const columns = [
             {
-                title: 'ID',
-                dataIndex: 'CustomerID',
-                key: 'CustomerID',
+                title: 'FlightID',
+                dataIndex: 'FlightID',
+                key: 'FlightID',
             },
             {
-                title: '姓名',
-                dataIndex: 'Name',
-                key: 'Name',
+                title: 'FlightNumber',
+                dataIndex: 'FlightNumber',
+                key: 'FlightNumber',
             },
             {
-                title: '联系信息',
-                dataIndex: 'ContactInfo',
-                key: 'ContactInfo',
+                title: 'DepartureTime',
+                dataIndex: 'DepartureTime',
+                key: 'DepartureTime',
+            },
+            {
+                title: 'ArrivalTime',
+                dataIndex: 'ArrivalTime',
+                key: 'ArrivalTime',
+            },
+            {
+                title: 'FlightStatus',
+                dataIndex: 'FlightStatus',
+                key: 'FlightStatus',
+            },
+            {
+                title: 'AircraftID',
+                dataIndex: 'AircraftID',
+                key: 'AircraftID',
+            },
+            {
+                title: 'DepartureAirportCode',
+                dataIndex: 'DepartureAirportCode',
+                key: 'DepartureAirportCode',
+            },
+            {
+                title: 'ArrivalAirportCode',
+                dataIndex: 'ArrivalAirportCode',
+                key: 'ArrivalAirportCode',
             },
         ];
         const dataSource = ref([]);
@@ -64,15 +89,25 @@ export default defineComponent({
 
         const handleAdd = () => {
             let newData = {
-                CustomerID: `${count.value}`,
-                Name: `user${count.value}`,
-                ContactInfo: `user${count.value}@example.com`,
+                FlightID: `${count.value}`,
+                FlightNumber: `user${count.value}`,
+                DepartureTime: `user${count.value}@example.com`,
+                ArrivalTime: `user${count.value}@example.com`,
+                FlightStatus: `user${count.value}@example.com`,
+                AircraftID: `user${count.value}@example.com`,
+                DepartureAirportCode: `user${count.value}@example.com`,
+                ArrivalAirportCode: `Last${count.value}`,
             };
 
             axios.post('http://localhost/databigvue/php/adduser.php', {
-                CustomerID: `${count.value}`,
-                Name: `user${count.value}`,
-                ContactInfo: `user${count.value}@example.com`,
+                FlightID: `${count.value}`,
+                FlightNumber: `user${count.value}`,
+                DepartureTime: `user${count.value}@example.com`,
+                ArrivalTime: `user${count.value}@example.com`,
+                FlightStatus: `user${count.value}@example.com`,
+                AircraftID: `user${count.value}@example.com`,
+                DepartureAirportCode: `user${count.value}@example.com`,
+                ArrivalAirportCode: `Last${count.value}`,
             },{
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +116,7 @@ export default defineComponent({
                 .then((response) => {
                     console.log(response.data);
                     if (response.data[0].code === 1) {
-                        newData.key = response.data[0].data.CustomerID;
+                        newData.key = response.data[0].data.FlightID;
                         dataSource.value.push(newData);
                         count.value += 1;
                     } else {
@@ -93,7 +128,7 @@ export default defineComponent({
                 });
         };
 
-        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+        axios.get('http://localhost/databigvue/php/showFlight.php').then((response) => {
             console.log(response.data);
             dataSource.value = response.data[0].data;
         });

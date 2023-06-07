@@ -1,10 +1,10 @@
 <template>
     <a-table :columns="columns" :data-source="dataSource" bordered>
         <template #bodyCell="{ column, text, record }">
-            <template v-if="['CustomerID', 'Name', 'ContactInfo'].includes(column.dataIndex)">
+            <template v-if="['FlightID', 'FlightNumber', 'DepArrivalAirportCodeartureTime','ArrivalTime','FlightStatus','AircraftID','DepartureAirportCode',''].includes(column.dataIndex)">
                 <div>
-                    <a-input v-if="editableData[record.CustomerID]" v-model:value="editableData[record.CustomerID][column.dataIndex]"
-                        style="margin: -5px 0" />
+                    <a-input v-if="editableData[record.FlightID]"
+                        v-model:value="editableData[record.FlightID][column.dataIndex]" style="margin: -5px 0" />
                     <template v-else>
                         {{ text }}
                     </template>
@@ -12,14 +12,14 @@
             </template>
             <template v-else-if="column.dataIndex === 'operation'">
                 <div class="editable-row-operations">
-                    <span v-if="editableData[record.CustomerID]">
-                        <a-typography-link @click="save(record.CustomerID)">Save</a-typography-link>
-                        <a-popconfirm title="Sure to cancel?" @confirm="cancel(record.CustomerID)">
+                    <span v-if="editableData[record.FlightID]">
+                        <a-typography-link @click="save(record.FlightID)">Save</a-typography-link>
+                        <a-popconfirm title="Sure to cancel?" @confirm="cancel(record.FlightID)">
                             <a>Cancel</a>
                         </a-popconfirm>
                     </span>
                     <span v-else>
-                        <a @click="edit(record.CustomerID)">Edit</a>
+                        <a @click="edit(record.FlightID)">Edit</a>
                     </span>
                 </div>
             </template>
@@ -33,19 +33,36 @@ import axios from 'axios';
 
 const columns = [
     {
-        title: 'CustomerID',
-        dataIndex: 'CustomerID',
-        width: '25%',
+        title: 'FlightID',
+        dataIndex: 'FlightID',
     },
     {
-        title: 'Name',
-        dataIndex: 'Name',
-        width: '15%',
+        title: 'FlightNumber',
+        dataIndex: 'FlightNumber',
     },
     {
-        title: 'ContactInfo',
-        dataIndex: 'ContactInfo',
-        width: '40%',
+        title: 'DepartureTime',
+        dataIndex: 'DepartureTime',
+    },
+    {
+        title: 'ArrivalTime',
+        dataIndex: 'ArrivalTime',
+    },
+    {
+        title: 'FlightStatus',
+        dataIndex: 'FlightStatus',
+    },
+    {
+        title: 'AircraftID',
+        dataIndex: 'AircraftID',
+    },
+    {
+        title: 'DepartureAirportCode',
+        dataIndex: 'DepartureAirportCode',
+    },
+    {
+        title: 'ArrivalAirportCode',
+        dataIndex: 'ArrivalAirportCode',
     },
     {
         title: 'operation',
@@ -57,20 +74,20 @@ export default defineComponent({
     setup() {
         const dataSource = ref([]);
         const editableData = reactive({});
-        const edit = (CustomerID) => {
-            editableData[CustomerID] = cloneDeep(
-                dataSource.value.filter((item) => CustomerID === item.CustomerID)[0]
+        const edit = (FlightID) => {
+            editableData[FlightID] = cloneDeep(
+                dataSource.value.filter((item) => FlightID === item.FlightID)[0]
             );
         };
         const fetchData = () => {
-            axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            axios.get('http://localhost/databigvue/php/showFlight.php').then((response) => {
                 // console.log(response.data);
                 dataSource.value = response.data[0].data;
             });
         };
-        const save = (CustomerID) => {
-            const editedData = editableData[CustomerID];
-            axios.post('http://localhost/databigvue/php/edituser.php', editedData,{
+        const save = (FlightID) => {
+            const editedData = editableData[FlightID];
+            axios.post('http://localhost/databigvue/php/edituser.php', editedData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -78,13 +95,13 @@ export default defineComponent({
                 console.log(response);
                 fetchData();
             });
-            delete editableData[CustomerID];
+            delete editableData[FlightID];
         };
-        const cancel = (CustomerID) => {
-            delete editableData[CustomerID];
+        const cancel = (FlightID) => {
+            delete editableData[FlightID];
         };
 
-        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+        axios.get('http://localhost/databigvue/php/showFlight.php').then((response) => {
             // console.log(response.data);
             dataSource.value = response.data[0].data;
         });
