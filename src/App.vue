@@ -208,8 +208,10 @@
 
         <!-- 文档 -->
         <a-menu-item key="27">
-          <file-outlined />
-          <span>文档</span>
+            <file-outlined />
+            <router-link to="/doc">
+              &nbsp;&nbsp;文档
+            </router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

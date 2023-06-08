@@ -145,6 +145,11 @@ const router = createRouter({
       name: 'DelAirport',
       component: () => import('../views/Airport/DelAirport.vue')
     },
+    {
+      path: '/doc',
+      name: 'Doc',
+      component: () => import('../views/Doc.vue')
+    },
 
   ]
 })
