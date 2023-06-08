@@ -94,10 +94,26 @@
               <span>预定</span>
             </span>
           </template>
-          <a-menu-item key="11">增加</a-menu-item>
-          <a-menu-item key="12">删除</a-menu-item>
-          <a-menu-item key="13">修改</a-menu-item>
-          <a-menu-item key="14">查看</a-menu-item>
+          <a-menu-item key="11">
+            <router-link to="/addReservation">
+              增加
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="12">
+            <router-link to="/delReservation">
+              删除
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="13">
+            <router-link to="/editReservation">
+              修改
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="14">
+            <router-link to="/showReservation">
+              查看
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 座位 -->
