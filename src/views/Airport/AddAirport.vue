@@ -2,10 +2,10 @@
     <a-button class="editable-add-btn" style="margin-bottom: 8px" @click="handleAdd">添加</a-button>
     <a-table bordered :data-source="dataSource" :columns="columns">
         <template #bodyCell="{ column, text, record }">
-            <template v-if="column.dataIndex === 'name'">
+            <template v-if="column.dataIndex === 'AirportName'">
                 <div class="editable-cell">
                     <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
-                        <a-input v-model:value="editableData[record.key].name" @pressEnter="save(record.key)" />
+                        <a-input v-model:value="editableData[record.key].AirportName" @pressEnter="save(record.key)" />
                         <check-outlined class="editable-cell-icon-check" @click="save(record.key)" />
                     </div>
                     <div v-else class="editable-cell-text-wrapper">
@@ -31,19 +31,14 @@ export default defineComponent({
     setup() {
         const columns = [
             {
-                title: 'CustomerID',
-                dataIndex: 'CustomerID',
-                key: 'CustomerID',
+                title: 'AirportCode',
+                dataIndex: 'AirportCode',
+                key: 'AirportCode',
             },
             {
-                title: 'Name',
-                dataIndex: 'Name',
-                key: 'Name',
-            },
-            {
-                title: 'ContactInfo',
-                dataIndex: 'ContactInfo',
-                key: 'ContactInfo',
+                title: 'AirportName',
+                dataIndex: 'AirportName',
+                key: 'AirportName',
             },
         ];
         const dataSource = ref([]);
@@ -64,14 +59,14 @@ export default defineComponent({
 
         const handleAdd = () => {
             let newData = {
-                CustomerID: `${count.value}`,
-                Name: `user${count.value}`,
+                AirportCode: `${count.value}`,
+                AirportName: `user${count.value}`,
                 ContactInfo: `user${count.value}@example.com`,
             };
 
             axios.post('http://localhost/databigvue/php/adduser.php', {
-                CustomerID: `${count.value}`,
-                Name: `user${count.value}`,
+                AirportCode: `${count.value}`,
+                AirportName: `user${count.value}`,
                 ContactInfo: `user${count.value}@example.com`,
             },{
                 headers: {
@@ -81,7 +76,7 @@ export default defineComponent({
                 .then((response) => {
                     console.log(response.data);
                     if (response.data[0].code === 1) {
-                        newData.key = response.data[0].data.CustomerID;
+                        newData.key = response.data[0].data.AirportCode;
                         dataSource.value.push(newData);
                         count.value += 1;
                     } else {
@@ -93,7 +88,7 @@ export default defineComponent({
                 });
         };
 
-        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+        axios.get('http://localhost/databigvue/php/showAirport.php').then((response) => {
             console.log(response.data);
             dataSource.value = response.data[0].data;
         });

@@ -1,8 +1,8 @@
 <template>
     <a-table :data-source="data.value" :columns="columns">
         <template #headerCell="{ column }">
-            <template v-if="column.key === 'Name'">
-                <span style="color: #1890ff">Name</span>
+            <template v-if="column.key === 'AirportCode'">
+                <span style="color: #1890ff">AirportCode</span>
             </template>
         </template>
         <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }">
@@ -58,12 +58,12 @@ export default defineComponent({
         const searchInput = ref();
         const columns = [
             {
-                title: 'Name',
-                dataIndex: 'Name',
-                key: 'Name',
+                title: 'AirportCode',
+                dataIndex: 'AirportCode',
+                key: 'AirportCode',
                 customFilterDropdown: true,
                 onFilter: (value, record) =>
-                    record.Name.toString().toLowerCase().includes(value.toLowerCase()),
+                    record.AirportCode.toString().toLowerCase().includes(value.toLowerCase()),
                 onFilterDropdownVisibleChange: (visible) => {
                     if (visible) {
                         setTimeout(() => {
@@ -73,14 +73,9 @@ export default defineComponent({
                 },
             },
             {
-                title: 'CustomerID',
-                dataIndex: 'CustomerID',
-                key: 'CustomerID',
-            },
-            {
-                title: 'ContactInfo',
-                dataIndex: 'ContactInfo',
-                key: 'ContactInfo',
+                title: 'AirportName',
+                dataIndex: 'AirportName',
+                key: 'AirportName',
                 customFilterDropdown: true,
                 onFilter: (value, record) =>
                     record.address.toString().toLowerCase().includes(value.toLowerCase()),
@@ -95,12 +90,12 @@ export default defineComponent({
         ];
         const data = reactive([]); // 声明响应式对象
         const fetchData = () => {
-            axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+            axios.get('http://localhost/databigvue/php/showAirport.php').then((response) => {
                 console.log(response.data);
                 data.value = response.data[0].data;
             });
         };
-        axios.get('http://localhost/databigvue/php/showuser.php').then((response) => {
+        axios.get('http://localhost/databigvue/php/showAirport.php').then((response) => {
             console.log(response.data);
             data.value = response.data[0].data;
         });
