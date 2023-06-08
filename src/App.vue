@@ -154,10 +154,26 @@
               <span>飞机</span>
             </span>
           </template>
-          <a-menu-item key="19">增加</a-menu-item>
-          <a-menu-item key="20">删除</a-menu-item>
-          <a-menu-item key="21">修改</a-menu-item>
-          <a-menu-item key="22">查看</a-menu-item>
+          <a-menu-item key="19">
+            <router-link to="/addAircraft">
+              增加
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="20">
+            <router-link to="/delAircraft">
+              删除
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="21">
+            <router-link to="/editAircraft">
+              修改
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="22">
+            <router-link to="/showAircraft">
+              查看
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 机场 -->
@@ -168,10 +184,26 @@
               <span>机场</span>
             </span>
           </template>
-          <a-menu-item key="23">增加</a-menu-item>
-          <a-menu-item key="24">删除</a-menu-item>
-          <a-menu-item key="25">修改</a-menu-item>
-          <a-menu-item key="26">查看</a-menu-item>
+          <a-menu-item key="23">
+            <router-link to="/addAirport">
+              增加
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="24">
+            <router-link to="/delAirport">
+              删除
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="25">
+            <router-link to="/editAirport">
+              修改
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="26">
+            <router-link to="/showAirport">
+              查看
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 文档 -->

@@ -105,6 +105,47 @@ const router = createRouter({
       name: 'ShowSeat',
       component: () => import('../views/Seat/ShowSeat.vue')
     },
+    {
+      path: '/showAircraft',
+      name: 'ShowAircraft',
+      component: () => import('../views/Aircraft/ShowAircraft.vue')
+    },
+    {
+      path: '/addAircraft',
+      name: 'AddAircraft',
+      component: () => import('../views/Aircraft/AddAircraft.vue')
+    },
+    {
+      path: '/editAircraft',
+      name: 'EditAircraft',
+      component: () => import('../views/Aircraft/EditAircraft.vue')
+    },
+    {
+      path: '/delAircraft',
+      name: 'DelAircraft',
+      component: () => import('../views/Aircraft/DelAircraft.vue')
+    },
+    {
+      path: '/showAirport',
+      name: 'ShowAirport',
+      component: () => import('../views/Airport/ShowAirport.vue')
+    },
+    {
+      path: '/addAirport',
+      name: 'AddAirport',
+      component: () => import('../views/Airport/AddAirport.vue')
+    },
+    {
+      path: '/editAirport',
+      name: 'EditAirport',
+      component: () => import('../views/Airport/EditAirport.vue')
+    },
+    {
+      path: '/delAirport',
+      name: 'DelAirport',
+      component: () => import('../views/Airport/DelAirport.vue')
+    },
+
   ]
 })
 
