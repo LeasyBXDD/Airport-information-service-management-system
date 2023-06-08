@@ -85,6 +85,26 @@ const router = createRouter({
       name: 'DelReservation',
       component: () => import('../views/Reservation/DelReservation.vue')
     },
+    {
+      path: '/addSeat',
+      name: 'AddSeat',
+      component: () => import('../views/Seat/AddSeat.vue')
+    },
+    {
+      path: '/editSeat',
+      name: 'EditSeat',
+      component: () => import('../views/Seat/EditSeat.vue')
+    },
+    {
+      path: '/delSeat',
+      name: 'DelSeat',
+      component: () => import('../views/Seat/DelSeat.vue')
+    },
+    {
+      path: '/showSeat',
+      name: 'ShowSeat',
+      component: () => import('../views/Seat/ShowSeat.vue')
+    },
   ]
 })
 

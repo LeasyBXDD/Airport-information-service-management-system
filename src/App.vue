@@ -124,10 +124,26 @@
               <span>座位</span>
             </span>
           </template>
-          <a-menu-item key="15">增加</a-menu-item>
-          <a-menu-item key="16">删除</a-menu-item>
-          <a-menu-item key="17">修改</a-menu-item>
-          <a-menu-item key="18">查看</a-menu-item>
+          <a-menu-item key="15">
+            <router-link to="/addSeat">
+              增加
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="16">
+            <router-link to="/delSeat">
+              删除
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="17">
+            <router-link to="/editSeat">
+              修改
+            </router-link>
+          </a-menu-item>
+          <a-menu-item key="18">
+            <router-link to="/showSeat">
+              查看
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 飞机 -->
