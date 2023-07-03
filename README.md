@@ -1,36 +1,6 @@
 > Airport-information-service-management-system
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
 # 系统数据库设计
-
-李奕哲 2021212205098
 
 ## 一、系统需求分析
 
@@ -361,3 +331,33 @@ npm run build
 但是，通过不断上网查找资料学习，查阅官方文档，观看视频教程，我最终还是完成了本次系统的开发。系统的设计阶段进展比较顺利，但也遇到了一些细节上思考不周全的问题，比如起初没有考虑到机场。在绘制ER图时，我也出现了较多细节问题，如关系名称的不规范使用和中英文混用等。在创建数据库时，我从一开始不知道SQL源文件是如何编写的，学习了相关语法和格式后，到现在已经可以独立编写一个完整的、可被source命令导入的SQL文件，很有成就感。最后，凭借大一时学习的Java基础知识，加上这次项目的练习，我比较顺利地完成了命令行终端的输入输出。但是在Java图形化界面开发中遇到了比较大的困难，一直无法在表格中动态显示数据库中的内容。经过两天的尝试，我最终没有找到令人满意的解决方案，只完成了首页的静态开发。
 
 通过本次开发，我系统地学习到了许多数据库基础知识，比如外键的应用场景和使用方法。我对数据库设计也有了更深刻的认识，认识到数据库设计不是一次完成的，需要根据后续开发不断优化，需要考虑很多实现细节，需要根据实际情况给出灵活的设计方案。
+
+This template should help get you started developing with Vue 3 in Vite.
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+# 
